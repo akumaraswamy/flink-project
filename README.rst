@@ -34,37 +34,21 @@ Build and Deploy
 
 STEP1 Build java code
 ---------------------
-*  
-mvn clean package
+* mvn clean package
 
 STEP2 Prepare data
-
 ------------------ 
 * Use wget or bitsadmin to get trips data from 
 https://s3.amazonaws.com/tripdata/201609-citibike-tripdata.zip
 
-
 * Flink is unable to process ZIP directly. So unzip the data file.
 
-
- 
-
 STEP 3 Create Elastic Search Index
-
 -----------------------------------
 * Start Kibana
-
-
 * Go to http://localhost:5601/appsense
-
-
 * Create the citi-bikes index (Refer data instruction in GIT)
-
-
 * Start Elastic Search
-
-
-
 
 STEP 4 Run Flink
 ---------------------------- 
