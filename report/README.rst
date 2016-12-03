@@ -2,8 +2,8 @@
   
   title: Citi Bike share analysis
   author: F16-DG-4034, Author one, akumaras@iu.edu
-  pages: 2
-  status: completed
+  pages: 3
+  status: Draft
 
 ::
 
