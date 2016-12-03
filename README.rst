@@ -1,9 +1,9 @@
 Citi Bike share analysis
-******************************
-Purpose of this project is to perform batch and stream processing on Citi Bike Share Trip data. Analysis report has been published for 
-- Trend analysis by gender (Batch mode)
-- Trend analysis by age (Batch mode)
-- Bike Availability alert (Stream mode)
+*************************
+Purpose of this project is to perform batch and stream processing on Citi Bike Share Trip data. Analysis report has been published for:
+- Trend analysis by gender
+- Trend analysis by age
+- Bike Availability alert
 
 DataSet
 =======
@@ -27,6 +27,7 @@ STEP1
 Build Java code
 Build java code using 
 mvn clean package
+
 STEP2
 ----- 
 Prepare data
@@ -39,6 +40,7 @@ Flink is unable to process ZIP directly. So unzip the data file.
 
 
  
+
 STEP 3 
 ------
 Elastic Search Index
@@ -53,6 +55,7 @@ Create the citi-bikes index (Refer data instruction in GIT)
 
 
 Start Elastic Search
+
 
 
 
