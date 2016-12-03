@@ -6,19 +6,22 @@
 
 
 \title{Citi Bike share analysis}  
-\subtitle{[Report]}
+\subtitle{[Project Report - 061]}
+\subtitle{\url{https://gitlab.com/cloudmesh_fall2016/project-061.git}}
 
 \numberofauthors{1} 
 
 \author{
 \alignauthor
 Aruna Kumaraswamy\\
+F16-DG-4034\\
        \affaddr{Indiana University}\\
        \email{akumaras@iu.edu}
 }
-
+\date{02 December 2016}
 
 \maketitle
+
 \begin{abstract}
     Purpose of this project is to analyze the NYC Citi Bike share system data in batch and streaming mode. Following report summarizes the finding based on the September 2016 bike share data. Report will also provide instructions on installing the necessary software, build and deploy the software created for this project.
 \end{abstract}
@@ -33,25 +36,35 @@ Apache Flink is used in this project to process the data in batch and streaming 
 \end{itemize}
 Components are built in Java. Maven is used for building the components.
 \subsection {Bike Rent Trend - By Age}
-Objective of this analysis is to find in which age group bike share is popular. This component takes csv file as input. For age group analysis, we are interested only in the age, so we skip all the other columns in the spreadsheet. Based on the age group, we decide if the bike rider is Boomer I, Boomer II, Gen X, Gen Y or Gen Z. Invalid age in the data is filtered. Final result is the count of the age groups for September 2016. Following is the visualization for this batch program. Visualization is created using a python program.
+Objective of this analysis is to find in which age group bike share is popular. This component takes csv file as input. For age group analysis, we are interested only in the age, so we skip all the other columns in the spreadsheet. Based on the age group, we decide if the bike rider is Boomer I, Boomer II, Gen X, Gen Y or Gen Z. Invalid age in the data is filtered. Final result is the count of the age groups for September 2016. Figure 1 depicts the visualization for this batch program. Visualization is created using a python program.
 
+\begin{figure}[!ht]
 \includegraphics[width=8cm, height=5cm]{tripsbygeneration}
+ \caption{Trend By age}\label{F:small}
+\end{figure}
 
+\break
 \subsection {Bike Rent Trend - By Gender}
 Objective of this analysis is to find whether bike ride is popular among men or women. This component takes CSV file as input and creates a CSV output. We are interested in trip date, gender column of the spreadsheet, so we skip other columns. We also filter unknown gender. We transform the input data using tables
-and join them to produce the desired CSV output. Following is the visualization for this batch program. Visualization is created using python program.
+and join them to produce the desired CSV output. Figure 2 is the visualization for this batch program. Visualization is created using python program.
 
+\begin{figure}[!ht]
 \includegraphics[width=8cm, height=5cm]{tripsbygender}
-
+ \caption{Trend By gender}\label{F:small}
+\end{figure}
 \subsection {Live Station Status Stream}
-Live station status feed is used to check the availability of bikes across all stations. If the bike availability of a station is less than 2 then those stations are filtered. Result is pushed to elastic search. Kibana is used for visualization of real-time alerts across geographic map.
+Live station status feed is used to check the availability of bikes across all stations. If the bike availability of a station is less than 2 then those stations are filtered. Result is pushed to elastic search. Kibana is used for visualization of real-time alerts across geographic map. Figure 3 is a representation on Geo map done via Kibana.
 
+\begin{figure}[!ht]
 \includegraphics[width=8cm, height=5cm]{bikealerts}
-
+ \caption{Bike alerts}\label{F:small}
+\end{figure}
 \section {Technology}
-Flink - Install flink version 1.1.3\break
-Elastic search - Install version 2.3.5\break
-Kibana - 4.5.4 (with appsense plugin)\break
+Flink - Install flink version 1.1.3 
+\break
+Elastic search - Install version 2.3.5
+\break
+Kibana - 4.5.4 (with appsense plugin)
 Python 2.7\break
 
 \section {Build and Deploy}
@@ -74,30 +87,31 @@ Start Kibana
 
 Go to http://localhost:5601/appsense
 
-Create index:
-
-PUT citi-bikes
-
-
-PUT /citi-bikes/_mapping/bike-alerts
-{"bike-alerts" : {"properties" : {"cnt": {"type": "integer"},"location": {"type": "geo_point"},"name": {"type": "String"},"time": {"type": "date"}}}}
+Create the citi-bikes index (Refer data instruction in GIT)
 
 Start Elastic Search
 
 
 \subsection {STEP 4 Run Flink}
 Start flink server 
-
+\break
 flink run -c com.citibike.batch.BikeRentTrendByAge /pathtojar/flink-java-project-0.1.jar --input <location of tripcsv> --output <output csv file location>
-
+\break
 flink run -c com.citibike.batch.BikeRentTrendByGender /pathtojar/flink-java-project-0.1.jar --input <location of tripcsv> --output <output csv file location>
-
+\break
 flink run -c com.citibike.stream.LiveStationStatusStream /pathtojar/flink-java-project-0.1.jar --input https://feeds.citibikenyc.com/stations/stations.json
 
+\break
+\break
+\break
+\break
+\break
+
 \section {Conclusion}
-Apache Flink offered ease of use and better performance to perform analysis in batch environment. SQL processing in batch is seem less.
-
-Stream Execution environment hs rich set of features and connector. Even though Table API is same for batch and stream, I had difficulty getting Kafka stream to dump to a table.   
-
+Apache Flink offered ease of use and better performance to perform analysis in batch environment. SQL processing in batch mode simplifies data preparation and storage.
+\break
+Stream Execution environment has rich set of features and connector. Even though Table API is same for batch and stream, I had difficulty getting Kafka stream to dump to a table sink.   
+\break
+Flink does not have a REST API similar to Spark to submit jobs, hence creating a web dashboard would take more effort.
 
 \end{document}
