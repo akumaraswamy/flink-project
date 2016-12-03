@@ -12,13 +12,59 @@ DataSet
 
 
 Visualization
-----------------
+=============
 - Run the python scripts with respective CSV input files for visualization
 
 Build and Deploy
-----------------
+================
+
+- Clone GIT repository
+
+ 
+
+STEP1 
+-----
+Build Java code
+Build java code using 
+mvn clean package
+STEP2
+----- 
+Prepare data
+
+Use wget or bitsadmin to get trips data from 
+https://s3.amazonaws.com/tripdata/201609-citibike-tripdata.zip
+
+
+Flink is unable to process ZIP directly. So unzip the data file.
+
+
+ 
+STEP 3 
+------
+Elastic Search Index
+
+Start Kibana
+
+
+Go to http://localhost:5601/appsense
+
+
+Create the citi-bikes index (Refer data instruction in GIT)
+
+
+Start Elastic Search
 
 
 
-References
-==========
+STEP 4
+------ 
+Run Flink
+
+Start flink server 
+
+flink run -c com.citibike.batch.BikeRentTrendByAge /pathtojar/flink-java-project-0.1.jar --input <location of tripcsv> --output <output csv file location>
+
+flink run -c com.citibike.batch.BikeRentTrendByGender /pathtojar/flink-java-project-0.1.jar --input <location of tripcsv> --output <output csv file location>
+
+flink run -c com.citibike.stream.LiveStationStatusStream /pathtojar/flink-java-project-0.1.jar --input https://feeds.citibikenyc.com/stations/stations.json
+
