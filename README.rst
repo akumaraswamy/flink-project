@@ -1,10 +1,12 @@
 Citi Bike share analysis
 *************************
-Purpose of this project is to perform batch and stream processing on Citi Bike Share Trip data. Analysis report has been published for:
+Purpose of this project is to perform batch and stream processing on Citi Bike Share Trip data. 
 
-Trend analysis by gender
-Trend analysis by age
-Bike Availability alert
+Analysis report has been published for:
+---------------------------------------
+- Trend analysis by gender
+- Trend analysis by age
+- Bike Availability alert
 
 DataSet
 =======
